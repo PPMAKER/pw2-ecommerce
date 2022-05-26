@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+        
+    </head>
+    <body>
+           <div th:insert="fragments/header :: modelheader"></div>
+           <br>
+           <div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="col">
+    <div class="card">
+      <img src="https://www.ideianoar.com.br/wp-content/uploads/2021/05/marketplace.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Faça compras Online</h5>
+        <p class="card-text">Compre os Produtos que deseja sem sair do conforto da sua casa!</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="https://wallpapercave.com/wp/wp4042010.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Melhores Marcas</h5>
+        <p class="card-text">Oferecemos à voce apenas o melhor do melhor, produtos 100% originais.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="https://miro.medium.com/max/1200/0*ZVejuOc0aaerlY84.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Pagemento Rápido e Seguro</h5>
+        <p class="card-text">Ambiente 100% seguro e confiável para você comprar sem preocupaçoes.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <img src="https://deskrush.com/wp-content/uploads/2018/11/dropshipping-3264486_640.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Entrega Rápida e Eficiente</h5>
+        <p class="card-text">Receba seus pedidos na porta de sua casa em um piscar de olhos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:insert="fragments/footer :: modelfooter"></div>

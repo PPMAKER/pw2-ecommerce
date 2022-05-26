@@ -1,0 +1,53 @@
+
+<nav class="navbar navbar-expand-lg bg-primary navbar-light" th:fragment="modelheader">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home}">PWEBII</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN')">
+          <a class="nav-link dropdown-toggle" href="#" id="CliDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Clientes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="CliDropdown">
+            <li><a class="dropdown-item" th:href="@{/clientePF/list}"  sec:authorize="hasAnyRole('ADMIN')">Consultar</a></li>
+            <li><a class="dropdown-item" th:href="@{/clientePF/form}">Cadastrar</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ProdDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Produtos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="ProdDropdown">
+              <li><a class="dropdown-item" th:href="@{/produto/list}">Consultar</a></li>
+            <li sec:authorize="hasAnyRole('ADMIN')"><a class="dropdown-item" th:href="@{/produto/form}">Cadastrar</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="CarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Carrinho
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="CarDropdown">
+            <li><a class="dropdown-item" th:href="@{/venda/carrinho}">Consultar</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN', 'USER')">
+          <a class="nav-link dropdown-toggle" href="#" id="VenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Vendas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="VenDropdown">
+            <li><a class="dropdown-item" th:href="@{/venda/list}">Consultar</a></li>
+          </ul>
+        </li>
+        <form th:action="@{/logout}" method="post" class="navbar-form navbar-right my-2 my-lg-0">
+            <button type="submit" class="btn btn-danger" sec:authorize="hasAnyRole('ADMIN', 'USER')">Sair</button>
+        </form>
+      </ul>
+    </div>
+  </div>
+</nav>  
+
+            
+            
