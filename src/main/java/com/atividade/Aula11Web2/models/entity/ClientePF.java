@@ -29,6 +29,18 @@ public class ClientePF extends Cliente {
     private String cpf;
     @NotBlank(message = " é obrigatório!") 
     private String nome;
+   
+    @OneToMany(mappedBy = "cliente")
+    private List<Endereco> enderecos;
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
 
     @OneToMany(mappedBy = "clientePF")
     private List<Venda> vendas;

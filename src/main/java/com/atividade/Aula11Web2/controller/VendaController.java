@@ -1,15 +1,21 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package com.atividade.Aula11Web2.controller;
 
+import com.atividade.Aula11Web2.models.entity.Cidade;
 import com.atividade.Aula11Web2.models.entity.ClientePF;
+import com.atividade.Aula11Web2.models.entity.Endereco;
+import com.atividade.Aula11Web2.models.entity.Estado;
 import com.atividade.Aula11Web2.models.entity.ItemVenda;
 import com.atividade.Aula11Web2.models.entity.Produto;
 import com.atividade.Aula11Web2.models.entity.Venda;
+import com.atividade.Aula11Web2.models.repository.CidadeRepository;
 import com.atividade.Aula11Web2.models.repository.ClientePFRepository;
+import com.atividade.Aula11Web2.models.repository.EnderecoRepository;
+import com.atividade.Aula11Web2.models.repository.EstadoRepository;
 import com.atividade.Aula11Web2.models.repository.ProdutoRepository;
 import com.atividade.Aula11Web2.models.repository.VendaRepository;
 import java.time.LocalDate;
@@ -49,6 +55,15 @@ public class VendaController {
 
     @Autowired
     ClientePFRepository repositoryCientePF;
+    
+    @Autowired
+    EnderecoRepository enderecoRepository;
+
+    @Autowired
+    CidadeRepository cidadeRepository;
+
+    @Autowired
+        EstadoRepository estadoRepository;
 
     @Autowired
     Venda venda;
@@ -101,13 +116,32 @@ public class VendaController {
     }
 
     @GetMapping("/carrinho")
-    public ModelAndView form(Venda venda, ModelMap model) {
-        model.addAttribute("clientesPF", repositoryCientePF.clientesPF());
-        return new ModelAndView("/venda/cart", model);
+    public String form() {
+        return "/venda/cart";
     }
 
-    @GetMapping("/save")
-    public ModelAndView save(RedirectAttributes redirectAttributes) {
+    @GetMapping("/checkout")
+    public ModelAndView checkout(Endereco endereco, ModelMap model) {
+        List<Estado> estados = estadoRepository.estados();
+        List<Cidade> cidades = cidadeRepository.cidades();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        ClientePF clientepf = repositoryCientePF.findByCpf(authentication.getName()).get(0);
+        List<Endereco> enderecos = clientepf.getEnderecos();
+
+        model.addAttribute("estados", estados);
+        model.addAttribute("cidades", cidades);
+        model.addAttribute("enderecos", enderecos);
+
+        return new ModelAndView("/venda/finalizar", model);
+    }
+
+    @PostMapping("/save")
+    public ModelAndView save(@Valid Endereco endereco, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors() && endereco.getId() == 0) {
+            return checkout(endereco, new ModelMap());
+        }
+
         if (this.venda.getItensVenda().isEmpty()) {
             redirectAttributes.addFlashAttribute("error_cart", "Carrinho vazio");
             return new ModelAndView("redirect:/venda/carrinho");
@@ -115,8 +149,15 @@ public class VendaController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ClientePF clientepf = repositoryCientePF.findByCpf(authentication.getName()).get(0);
+        
+        if (endereco.getId() == 0) {
+            endereco.setCliente(clientepf);
+        } else {
+            endereco.cleanFields();
+        }
 
         this.venda.setId(null);
+        this.venda.setEndereco(endereco);
         this.venda.setData(LocalDate.now());
         this.venda.setClientePF(clientepf);
         repository.save(this.venda);
