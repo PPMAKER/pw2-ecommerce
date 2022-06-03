@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Lista de Produtos</title>
+        <title>Dados da Venda</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -208,6 +208,27 @@ input[type=submit]:hover {
                 <td th:text="${iv.produto.valor}"> </td>
                 <td th:text="${iv.qtd}"> </td>
                 <td th:text="${iv.total()}"> </td>
+            </tr>
+        </table>
+        </div>
+        
+        <span class="material-icons" th:if="${!#strings.isEmpty(venda.endereco.cidade)}"><p>Endereço de Entrega</p></span>
+          <div class="table-responsive">
+            <table class="table table-striped border-primary align-middle table-hover" border="1" th:if="${!#strings.isEmpty(venda.endereco.cidade)}">
+            <thead>
+                <tr>
+                    <th>Logradouro  </th>
+                    <th>Bairro</th>
+                    <th>CEP</th>
+                    <th>Cidade/UF</th>
+                </tr>
+            </thead>
+            <tr>
+            <td th:text="${venda.endereco.logradouro}"> </td>
+            <td th:text="${venda.endereco.bairro}"> </td>
+            <td th:text="${venda.endereco.cep}"> </td>
+            <td th:text="${venda.endereco.cidade.nome + '/' + venda.endereco.cidade.estado.sigla}"> </td>
+
             </tr>
         </table>
         </div>

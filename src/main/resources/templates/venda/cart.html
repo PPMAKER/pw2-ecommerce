@@ -183,11 +183,7 @@ input[type=submit]:hover {
     <div class="text-right">
         <p th:text="${'Total da compra: '+session.venda.total()}"></p>
 
-         <div class="alert alert-danger" th:text="${!#strings.isEmpty(error_cart)} ? ${error_cart}"> </div>
-        <form th:if="${session.venda.total()}!=0" th:action="@{/venda/save}" method="GET"> 
-           
-            <input type="submit" class="btn btn-primary" value="Finalizar carrinho">
-        </form>
+        <a th:if="${session.venda.total()}!=0" class="btn btn-primary" th:href="@{/venda/checkout}" >Finalizar carrinho</a>
         <a th:unless="${session.venda.total()}!=0" class="btn btn-info" th:href="@{/produto/list}" >Adicionar produtos</a>
     </div>
 
