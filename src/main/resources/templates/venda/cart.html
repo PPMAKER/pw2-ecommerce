@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Lista de Produtos</title>
+        <title>Carrinho</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -183,7 +183,7 @@ input[type=submit]:hover {
     <div class="text-right">
         <p th:text="${'Total da compra: '+session.venda.total()}"></p>
 
-        <a th:if="${session.venda.total()}!=0" class="btn btn-primary" th:href="@{/venda/checkout}" >Finalizar carrinho</a>
+        <a th:if="${session.venda.total()}!=0" class="btn btn-primary" th:href="@{/venda/checkout}" >Prosseguir</a>
         <a th:unless="${session.venda.total()}!=0" class="btn btn-info" th:href="@{/produto/list}" >Adicionar produtos</a>
     </div>
 

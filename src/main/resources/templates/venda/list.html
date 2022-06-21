@@ -160,7 +160,6 @@ input[type=submit]:hover {
         <div class="login">
       <div class="form">
         <span class="material-icons"><p>Vendas</p></span>
-        <div class="alert alert-success" th:text="${!#strings.isEmpty(success)} ? ${success}"> </div>
         <form  th:action="@{/venda/list}" method="GET" class="form-inline input-daterange input-group" id="datepicker">
         <div class="input-group">
          <b class="input-group-text">De</b>

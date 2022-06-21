@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +42,7 @@ public class Venda implements Serializable {
     @OneToMany(mappedBy = "venda", cascade = CascadeType.PERSIST)
     private List<ItemVenda> itensVenda = new ArrayList();
     
+    @Valid
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
@@ -51,7 +54,21 @@ public class Venda implements Serializable {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+    
+    @Valid
+    @NotNull(message = "Selecione uma forma de pagamento")
+    @ManyToOne
+    @JoinColumn(name = "id_forma_pagamento")
+    private FormaPagamento formaPagamento;
 
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+    
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private ClientePF clientePF;
